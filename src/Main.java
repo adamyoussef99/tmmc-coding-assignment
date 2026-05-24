@@ -11,8 +11,12 @@ class Main {
             return;
         }
 
+        processImageFromPath(args[0]);
+    }
+
+    static void processImageFromPath(String filePath) {
         try {
-            File imgFile = new File(args[0]);
+            File imgFile = new File(filePath);
             BufferedImage img = ImageIO.read(imgFile);
 
             if (img != null) {
@@ -26,27 +30,27 @@ class Main {
         }
     }
 
-    private static void rowCounter(BufferedImage img) {
+    static void rowCounter(BufferedImage img) {
         int width = img.getWidth();
         int midY = img.getHeight() / 2;
         int lineCount = 0;
-        boolean inLine = false;
+        boolean onBlackLine = false;
 
         for (int x = 0; x < width; x++) {
             Color pixel = new Color(img.getRGB(x, midY));
-            boolean isBlack = checkColor(pixel);
-            if (isBlack && !inLine) {
+            boolean isBlack = checkCurrentPixelColor(pixel);
+            if (isBlack && !onBlackLine) {
                 lineCount++;
-                inLine = true;
+                onBlackLine = true;
             } else if (!isBlack) {
-                inLine = false;
+                onBlackLine = false;
             }
         }
 
         System.out.println("Number of vertical lines: " + lineCount);
     }
 
-    private static boolean checkColor(Color pixel) {
+    static boolean checkCurrentPixelColor(Color pixel) {
         return pixel.getRed() < 128 && pixel.getGreen() < 128 && pixel.getBlue() < 128;
     }
 }
