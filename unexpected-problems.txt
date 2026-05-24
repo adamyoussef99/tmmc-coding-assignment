@@ -1,0 +1,13 @@
+Unexpected Problems - Vertical Line Counter
+Adam Youssef
+
+One challenge I encountered was deciding between using Java's Image class
+and the BufferedImage class. I was initially unfamiliar with BufferedImage
+and wasn't sure which one was appropriate for the task. After looking into
+both, I found that BufferedImage provides direct pixel-level access through
+getRGB(), which the base Image class does not, making it the clear choice.
+
+Another issue was handling pixel color detection. After some debugging I found out that
+JPG compression alters pixel values, so a pure black pixel saved in MS Paint may not
+be stored as exactly (0, 0, 0) in the file. I solved this by using a threshold value
+of 128 to determine if a pixel is black or not.
